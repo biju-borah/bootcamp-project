@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Role</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        input,
+        select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <h1>Create Role</h1>
+        <input id="addrolename" type="text" name="role" placeholder="Role Name">
+        <textarea id="adddesc" name="description" placeholder="Description"></textarea>
+        <button id="addrole">Create</button>
+    </form>
+    <script>
+        var submitbutton = document.getElementById('addrole');
+        submitbutton.addEventListener('click', function (event) {
+            event.preventDefault();
+            var role = document.getElementById('addrolename').value;
+            var desc = document.getElementById('adddesc').value;
+
+            var data = {
+                role: role,
+                desc: desc
+            };
+            var roles = JSON.parse(localStorage.getItem('roles')) || [];
+            roles.push(data);
+            localStorage.setItem('roles', JSON.stringify(roles));
+            console.log('Data successfully saved to local storage');
+
+            document.getElementById('addrolename').value = '';
+            document.getElementById('adddesc').value = '';
+            alert('Role added successfully');
+
+        });
+    </script>
+</body>
+
+</html>

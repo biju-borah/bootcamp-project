@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 0px;
+        }
+
+        hr {
+            margin-bottom: 40px;
+            width: 90%;
+            color: #f0f0f0;
+        }
+
+        form div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        input,
+        select {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 15vw;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-left: 10vw;
+            ;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 40px;
+            font-size: large;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <h1>Traffic Management System</h1>
+        <hr>
+        <div>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <script>
+        var submit = document.querySelector('button[type="submit"]');
+        submit.addEventListener('click', function (event) {
+            event.preventDefault();
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var users = JSON.parse(localStorage.getItem('users')) || [];
+            var user = users.find(function (r) {
+                return r.username === username && r.password === password;
+            });
+            if (user) {
+                alert('Login successful');
+                window.location.href = 'inProgress.html';
+            } else {
+                alert('Invalid username or password');
+            }
+        });
+    </script>
+</body>
+</html>
