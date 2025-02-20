@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modify Owner Detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", serif;
+        margin: 0;
+        padding: 5vh 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: 100vh; */
+        background-color: #f0f0f0;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 0;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 40vw;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      select {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        margin: 10px 0;
+      }
+
+      input {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      label {
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .search-div {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .search-div button {
+        padding: 10px;
+        border: none;
+        height: 40px;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      hr {
+        margin: 20px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form>
+      <h1>Modify Owner Detail</h1>
+      <div class="search-div">
+        <span>
+          <label for="vehicleNo">Vehicle No.</label>
+          <input type="text" id="vehicleNo" name="vehicleNo" />
+        </span>
+        <button type="submit">Search</button>
+      </div>
+      <hr />
+      <div class="container">
+        <div class="col1">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" required disabled />
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" required disabled />
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required disabled />
+          <label for="landlineNumber">Landline Number</label>
+          <input type="number" id="landlineNumber" name="landlineNumber" disabled />
+          <label for="mobileNumber">Mobile Number</label>
+          <input type="number" id="mobileNumber" name="mobileNumber" required disabled />
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" disabled>
+            <option value="man">Male</option>
+            <option value="woman">Female</option>
+          </select>
+        </div>
+        <div class="col2">
+          <label for="tempAddress">Temporary Address</label>
+          <textarea
+            type="text"
+            id="tempAddress"
+            name="tempAddress"
+            required disabled
+          ></textarea>
+          <label for="permAddress">Permanent Address</label>
+          <textarea
+            type="text"
+            id="permAddress"
+            name="permAddress"
+            required disabled
+          ></textarea>
+          <label for="pincode">Pincode</label>
+          <input type="number" id="pincode" name="pincode" required disabled />
+          <label for="occupation">Occupation</label>
+          <input type="text" id="occupation" name="occupation" required disabled />
+          <label for="pancardNumber">Pancard Number</label>
+          <input type="text" id="pancardNumber" name="pancardNumber" required disabled />
+          <label for="addressProofName">Address Proof Name</label>
+          <input
+            type="text"
+            id="addressProofName"
+            name="addressProofName"
+            required disabled
+          />
+        </div>
+      </div>
+      <span
+        ><button type="submit">Update</button>
+        <button type="submit" style="background-color:#dc3545;">Delete</button></span
+      >
+    </form>
+  </body>
+</html>

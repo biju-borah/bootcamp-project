@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Vehicle Detail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 5vh 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; */
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 40vw;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .search-div {
+            display: flex;
+            justify-content: space-between;
+        }
+        .search-div button {
+            padding: 10px;
+            border: none;
+            height: 40px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        hr {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <h1>Modify Vehicle Detail</h1>
+        <div class="search-div">
+            <span>
+                <label for="vehicleNo">Vehicle No.</label>
+                <input type="text" id="vehicleNo" name="vehicleNo">
+            </span>
+            <button type="submit">Search</button>
+        </div>
+        <hr>
+        <label for="ownerName">Vehicle ID</label>
+        <input type="text" id="vehicleID" name="vehicleID" disabled style="width: 50%;">
+        <div class="container">
+            <div class="col1">
+                <label for="vehicleType">Vehicle Type</label>
+                <select id="vehicleType" name="vehicleType" disabled>
+                    <option value="car">Car</option>
+                    <option value="bike">Bike</option>
+                    <option value="truck">Truck</option>
+                </select>
+                <br>
+                <label for="engineNo">Engine No.</label>
+                <input type="text" id="engineNo" name="engineNo" disabled>
+                <label for="modelNo">Model No.</label>
+                <input type="text" id="modelNo" name="modelNo" disabled>
+                <label for="vehicleName">Vehicle Name</label>
+                <input type="text" id="vehicleName" name="vehicleName" disabled>
+                <label for="vehicleColor">Vehicle Color</label>
+                <input type="text" id="vehicleColor" name="vehicleColor" disabled>
+            </div>
+            <div class="col2">
+                <label for="manufacturerName">Manufacturer Name</label>
+                <input type="text" id="manufacturerName" name="manufacturerName" disabled>
+                <label for="dateOfManufacture">Date of Manufacture</label>
+                <input type="date" id="dateOfManufacture" name="dateOfManufacture" disabled>
+                <label for="numberOfCylinders">Number of Cylinders</label>
+                <input type="number" id="numberOfCylinders" name="numberOfCylinders" disabled>
+                <label for="cubicCapacity">Cubic Capacity</label>
+                <input type="number" id="cubicCapacity" name="cubicCapacity" disabled>
+                <label for="fuelUsed">Fuel Used</label>
+                <input type="text" id="fuelUsed" name="fuelUsed" disabled>
+            </div>
+        </div>
+        <button type="submit">Add Vehicle</button>
+    </form>
+
+</body>
+
+</html>
