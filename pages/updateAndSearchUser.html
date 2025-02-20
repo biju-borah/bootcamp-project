@@ -117,6 +117,15 @@
                 document.querySelector("input[name='username']").value = user.username;
                 document.querySelector("input[name='role']").value = user.role;
                 document.querySelector("select[name='roledropdown']").disabled = false;
+
+                var roles = JSON.parse(localStorage.getItem('roles')) || [];
+                var dropdown = document.querySelector("select[name='roledropdown']");
+                roles.forEach(function (role) {
+                    var option = document.createElement('option');
+                    option.text = role.role;
+                    option.value = role.role;
+                    dropdown.add(option);
+                });
             } else {
                 alert('User not found');
             }
