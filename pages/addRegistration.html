@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 20vw;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="addRegistration.php" method="POST">
+            <h1>Add Registration</h1>
+            <label for="vehicle_no">Vehicle No</label>
+            <input type="text" name="vehicle_no" required>
+            <label for="application_no">Application No</label>
+            <input type="text" name="application_no" required>
+            <label for="vehicle_id">Vehicle ID</label>
+            <input type="text" name="vehicle_id" required>
+            <label for="owner_id">Owner ID</label>
+            <input type="text" name="owner_id" required>
+            <label for="date_of_registration">Date of Registration</label>
+            <input type="date" name="date_of_purchase">
+            <label for="distributer_name">Distributer Name</label>
+            <input type="text" name="distributer_name">
+            <button type="submit">Add Registration</button>
+        </form>
+    </div>
+</body>
+
+</html>
