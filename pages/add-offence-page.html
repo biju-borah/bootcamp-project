@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Offence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        input,
+        select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button-container{
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <h1>Add Offence</h1>
+        <input id="vehiclenumber" type="text" name="vehiclenumber" placeholder="Vehicle Number" required>
+        <select id="offence">
+            <option value="empty" disabled selected>--- Select Offence ---</option>
+        </select>
+        
+        <input id="penalty" type="text" name="penalty" placeholder="₹ 0" readonly>
+        <input id="datetime" type="datetime-local" name="datetime" required>
+        <input id="place" type="text" name="place" placeholder="Place of Offence" required>
+        <input id="reportedby" type="text" name="reportedby" placeholder="Reported By" required>
+        <input id="image" type="file" name="image">
+        <div class="button-container">
+            <button id="addoffence">Add</button>
+        <button id="reset">Reset</button>
+        </div>
+    </form>
+    <script>
+        // add offence to select drowpdown from local storage
+        let offences = JSON.parse(localStorage.getItem("offences"));
+        let select = document.getElementById("offence");
+        offences.forEach(offence => {
+            let option = document.createElement("option");
+            option.value = offence.id;
+            option.text = offence.offenceDescription;
+            select.appendChild(option);
+        });
+
+        select.addEventListener("change", function() {
+            if(select.value == "empty") {
+                document.getElementById("penalty").value = "";
+                return;
+            }
+            let selectedOffence = offences.find(offence => offence.id == select.value);
+            document.getElementById("penalty").value = selectedOffence.penalty;
+        });
+        
+        var addoffence = document.getElementById('addoffence');
+        addoffence.addEventListener('click', function (event) {
+            event.preventDefault();
+            var vehiclenumber = document.getElementById('vehiclenumber').value;
+            var offence = document.getElementById('offence').value;
+            var penalty = document.getElementById('penalty').value;
+            var datetime = document.getElementById('datetime').value;
+            var place = document.getElementById('place').value;
+            var reportedby = document.getElementById('reportedby').value;
+            var image = document.getElementById('image').value;
+            var challan = {
+                vehiclenumber: vehiclenumber,
+                offenceId: offence,
+                penalty: penalty,
+                datetime: datetime,
+                place: place,
+                reportedby: reportedby,
+                image: image,
+                status: 'unpaid'
+            };
+            var challans = JSON.parse(localStorage.getItem('challans')) || [];
+            challans.push(challan);
+            localStorage.setItem('challans', JSON.stringify(challans));
+            alert('Challan added successfully');
+            location.reload();
+        });
+    </script>
+</body>
+
+</html>

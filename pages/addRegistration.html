@@ -18,6 +18,7 @@
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
+            position: relative;
         }
 
         form {
@@ -46,28 +47,87 @@
             cursor: pointer;
             margin: 10px 0;
         }
+
+        select {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 20vw;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
 <body>
+    <button style="position: fixed; bottom: 0; right: 0; margin: 0; " onclick="prepopulate()">Prepopulate</button>
     <div class="container">
-        <form action="addRegistration.php" method="POST">
+        <form>
             <h1>Add Registration</h1>
             <label for="vehicle_no">Vehicle No</label>
             <input type="text" name="vehicle_no" required>
             <label for="application_no">Application No</label>
             <input type="text" name="application_no" required>
             <label for="vehicle_id">Vehicle ID</label>
-            <input type="text" name="vehicle_id" required>
+            <select name="vehicle_id" required></select>
             <label for="owner_id">Owner ID</label>
-            <input type="text" name="owner_id" required>
+            <select name="owner_id" required></select>
             <label for="date_of_registration">Date of Registration</label>
-            <input type="date" name="date_of_purchase">
+            <input type="date" name="date_of_registration">
             <label for="distributer_name">Distributer Name</label>
             <input type="text" name="distributer_name">
             <button type="submit">Add Registration</button>
         </form>
     </div>
+    <script>
+        // populate the dropdowns
+        function preload() {
+            var vehicle = JSON.parse(localStorage.getItem('vehicles')) || [];
+            var owner = JSON.parse(localStorage.getItem('owners')) || [];
+            var vehicleDropdown = document.querySelector('select[name="vehicle_id"]');
+            var ownerDropdown = document.querySelector('select[name="owner_id"]');
+            vehicle.forEach(function (vehicle) {
+                var option = document.createElement('option');
+                option.text = vehicle.id;
+                option.value = vehicle.id;
+                vehicleDropdown.add(option);
+            });
+            owner.forEach(function (owner) {
+                var option = document.createElement('option');
+                option.text = owner.id;
+                option.value = owner.id;
+                ownerDropdown.add(option);
+            });
+        }
+        preload();
+        function prepopulate() {
+            document.querySelector('input[name="vehicle_no"]').value = 'AS-01-HH-1234';
+            document.querySelector('input[name="application_no"]').value = '1234';
+            document.querySelector('input[name="date_of_registration"]').value = '2021-09-01';
+            document.querySelector('input[name="distributer_name"]').value = 'ABC Distributers';
+        }
+        var submitButton = document.querySelector('button[type="submit"]');
+        submitButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            var vehicle_no = document.querySelector('input[name="vehicle_no"]').value;
+            var application_no = document.querySelector('input[name="application_no"]').value;
+            var vehicle_id = document.querySelector('select[name="vehicle_id"]').value;
+            var owner_id = document.querySelector('select[name="owner_id"]').value;
+            var date_of_registration = document.querySelector('input[name="date_of_registration"]').value;
+            var distributer_name = document.querySelector('input[name="distributer_name"]').value;
+            var registrations = JSON.parse(localStorage.getItem('registrations')) || [];
+            registrations.push({
+                vehicle_no: vehicle_no,
+                application_no: application_no,
+                vehicle_id: vehicle_id,
+                owner_id: owner_id,
+                date_of_registration: date_of_registration,
+                distributer_name: distributer_name
+            });
+            localStorage.setItem('registrations', JSON.stringify(registrations));
+            alert('Registration added successfully');
+            location.reload();
+        });
+    </script>
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Clerk Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -27,14 +27,16 @@
 
         ul {
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-between;
+            align-items: center;
             list-style-type: none;
-            padding: 0;
+            padding: 0 10px;
             width: 100%;
         }
 
         li {
             margin: 0 10px;
+            text-align: center;
         }
 
         a {
@@ -47,7 +49,7 @@
             font-weight: bold;
         }
 
-        #login{
+        #login {
             padding: 8px 20px;
             border: none;
             border-radius: 5px;
@@ -69,24 +71,24 @@
 <body>
     <nav>
         <ul>
-            <li><a href="pages/createRole.html">Create Role</a></li>
-            <li><a href="pages/deleteRole.html">Delete Role</a></li>
-            <li><a href="pages/createUser.html">Create User</a></li>
-            <li><a href="pages/deleteUser.html">Delete User</a></li>
-            <li><a href="pages/updateAndSearchUser.html">Search user</a></li>
-            <li><a href="pages/roleSearchAndUpdate.html">Update role</a></li>
-            <li><a id="login" href="pages/login.html">Logout</a></li>
+            <span style="display: flex;">
+                <li><a href="report-generation.html">Generate Report</a></li>
+                <li><a href="clearOffence.html">Clear Offence</a></li>
+            </span>
+            <li><a id="login" href="login.html">Logout</a></li>
         </ul>
     </nav>
     <section>
         <div>
-            <h1>Welcome to the Admin Dashboard</h1>
+            <h1>Welcome to the Clerk Dashboard</h1>
             <p>Click on the links above to perform the desired action.</p>
             <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
                 type="module"></script>
-            <dotlottie-player src="https://lottie.host/5ec13734-0cda-4768-83f6-47594300b196/eIAqO0bp0z.lottie"
-                background="transparent" speed="1" style="width: 300px; height: 300px; margin: auto;" loop autoplay></dotlottie-player>
+            <dotlottie-player src="https://lottie.host/d60ed10a-d7e1-4bee-8898-146ae815bce9/SNQSZsJB66.lottie"
+                background="transparent" speed="1" style="width: 300px; height: 300px; margin: auto;" loop
+                autoplay></dotlottie-player>
         </div>
     </section>
 </body>
+
 </html>

@@ -97,7 +97,7 @@
                 <label for="vehicleNo">Vehicle No.</label>
                 <input type="text" id="vehicleNo" name="vehicleNo">
             </span>
-            <button type="submit">Search</button>
+            <button id="search" type="submit">Search</button>
         </div>
         <hr>
         <label for="ownerName">Vehicle ID</label>
@@ -133,9 +133,92 @@
                 <input type="text" id="fuelUsed" name="fuelUsed" disabled>
             </div>
         </div>
-        <button type="submit">Add Vehicle</button>
+        <button id="update" type="submit">Update Vehicle Detail</button>
     </form>
+    <script>
+        var searchButton = document.getElementById("search");
+        searchButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            var vehicleNo = document.getElementById("vehicleNo").value;
+            var vehicles = JSON.parse(localStorage.getItem("vehicles")) || [];
+            var registrations = JSON.parse(localStorage.getItem("registrations")) || [];
+            var registration = registrations.find(function (registration) {
+                return registration.vehicle_no === vehicleNo;
+            });
+            if (!registration) {
+                alert("Registration not found!");
+                return;
+            }
+            var vehicle = vehicles.find(function (vehicle) {
+                return vehicle.id === registration.vehicle_id;
+            });
+            if (!vehicle) {
+                alert("Vehicle not found!");
+                return;
+            }
+            document.getElementById("vehicleID").value = vehicle.id;
+            document.getElementById("vehicleType").value = vehicle.vehicleType;
+            document.getElementById("engineNo").value = vehicle.engineNo;
+            document.getElementById("modelNo").value = vehicle.modelNo;
+            document.getElementById("vehicleName").value = vehicle.vehicleName;
+            document.getElementById("vehicleColor").value = vehicle.vehicleColor;
+            document.getElementById("manufacturerName").value = vehicle.manufacturerName;
+            document.getElementById("dateOfManufacture").value = vehicle.dateOfManufacture;
+            document.getElementById("numberOfCylinders").value = vehicle.numberOfCylinders;
+            document.getElementById("cubicCapacity").value = vehicle.cubicCapacity;
+            document.getElementById("fuelUsed").value = vehicle.fuelUsed;
 
+            document.getElementById("vehicleType").disabled = false;
+            document.getElementById("engineNo").disabled = false;
+            document.getElementById("modelNo").disabled = false;
+            document.getElementById("vehicleName").disabled = false;
+            document.getElementById("vehicleColor").disabled = false;
+            document.getElementById("manufacturerName").disabled = false;
+            document.getElementById("dateOfManufacture").disabled = false;
+            document.getElementById("numberOfCylinders").disabled = false;
+            document.getElementById("cubicCapacity").disabled = false;
+            document.getElementById("fuelUsed").disabled = false;
+
+        });
+
+        var updateButton = document.getElementById("update");
+        updateButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            var vehicleID = document.getElementById("vehicleID").value;
+            var vehicleType = document.getElementById("vehicleType").value;
+            var engineNo = document.getElementById("engineNo").value;
+            var modelNo = document.getElementById("modelNo").value;
+            var vehicleName = document.getElementById("vehicleName").value;
+            var vehicleColor = document.getElementById("vehicleColor").value;
+            var manufacturerName = document.getElementById("manufacturerName").value;
+            var dateOfManufacture = document.getElementById("dateOfManufacture").value;
+            var numberOfCylinders = document.getElementById("numberOfCylinders").value;
+            var cubicCapacity = document.getElementById("cubicCapacity").value;
+            var fuelUsed = document.getElementById("fuelUsed").value;
+
+            var vehicles = JSON.parse(localStorage.getItem("vehicles")) || [];
+            var vehicle = vehicles.find(function (vehicle) {
+                return vehicle.id === vehicleID;
+            });
+            if (vehicle) {
+                vehicle.vehicleType = vehicleType;
+                vehicle.engineNo = engineNo;
+                vehicle.modelNo = modelNo;
+                vehicle.vehicleName = vehicleName;
+                vehicle.vehicleColor = vehicleColor;
+                vehicle.manufacturerName = manufacturerName;
+                vehicle.dateOfManufacture = dateOfManufacture;
+                vehicle.numberOfCylinders = numberOfCylinders;
+                vehicle.cubicCapacity = cubicCapacity;
+                vehicle.fuelUsed = fuelUsed;
+
+                localStorage.setItem("vehicles", JSON.stringify(vehicles));
+                alert("Vehicle detail updated successfully!");
+            } else {
+                alert("Vehicle not found!");
+            }
+        });
+    </script>
 </body>
 
 </html>

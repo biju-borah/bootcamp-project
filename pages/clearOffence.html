@@ -91,34 +91,77 @@
         </div>
         <hr>
         <div class="Offences">
-            <div>
-                <h3>Offences</h3>
-                <ul>
-                    <li>Offence 1</li>
-                    <li>Offence 2</li>
-                    <li>Offence 3</li>
-                </ul>
-            </div>
         </div>
         <div class="container">
             <div>
-                <h3>Owner</h3>
-                <p>Name: Owner Name</p>
-                <p>Mobile: 1234567890</p>
-                <p>Address Proof: Aadhar Card</p>
+                <h3></h3>
+                <p></p>
+                <p></p>
+                <p></p>
             </div>
             <div>
-                <h3>Vehicle</h3>
-                <p>Vehicle Number: Vehicle Number</p>
-                <p>Vehicle Type: Vehicle Type</p>
+                <h3></h3>
+                <p></p>
+                <p></p>
             </div>
         </div>
-        <div>
-            <h3>Address</h3>
-            <p>Address: Address</p>
-        </div>
-        <button>Clear Offence(s)</button>
+        <button id="clear">Clear Offence(s)</button>
     </form>
+
+    <script>
+        const searchButton = document.querySelector('button');
+        searchButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const vehicleNumber = document.querySelector('input').value;
+            var challans = JSON.parse(localStorage.getItem('challans'));
+            challans = challans.filter(challan => challan.vehiclenumber == vehicleNumber && challan.status == 'unpaid');
+            if (challans.length == 0) {
+                const list = document.getElementsByClassName('Offences');
+                list[0].innerHTML = 'No Active Challans';
+            }else{
+                const list = document.getElementsByClassName('Offences');
+                list[0].innerHTML = '<h3>Active Challans</h3>';
+                challans.forEach(challan => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `Offence: ${challan.offenceId} <br> Penalty: ₹${challan.penalty} <br> Date: ${challan.datetime}`;
+                    list[0].appendChild(li);
+                });
+                //populate owner and vehicle details and address
+                const owner = document.querySelector('.container').children[0];
+                const vehicle = document.querySelector('.container').children[1];
+                const address = document.querySelector('.container').children[2];
+
+                const registration = JSON.parse(localStorage.getItem('registrations')).find(registration => registration.vehicle_no == vehicleNumber);
+                const ownerId = registration.owner_id;
+                const vehicleId = registration.vehicle_id;
+                const ownerDetails = JSON.parse(localStorage.getItem('owners')).find(owner => owner.id == ownerId);
+                const vehicleDetails = JSON.parse(localStorage.getItem('vehicles')).find(vehicle => vehicle.id == vehicleId);
+
+                owner.children[0].innerHTML = `Owner`;
+                owner.children[1].innerHTML = `Name: ${ownerDetails.firstName} ${ownerDetails.lastName}`;
+                owner.children[2].innerHTML = `Mobile: ${ownerDetails.mobileNumber}`;
+                owner.children[3].innerHTML = `Address Proof: ${ownerDetails.addressProofName}`;
+
+                vehicle.children[0].innerHTML = `Vehicle`;
+                vehicle.children[1].innerHTML = `Vehicle Name: ${vehicleDetails.vehicleName}`;
+                vehicle.children[2].innerHTML = `Vehicle Type: ${vehicleDetails.vehicleType}`;
+            }
+        });
+
+        var clearButton = document.getElementById('clear');
+        clearButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const vehicleNumber = document.querySelector('input').value;
+            var challans = JSON.parse(localStorage.getItem('challans'));
+            challans = challans.filter(challan => challan.vehiclenumber == vehicleNumber && challan.status == 'unpaid');
+            challans.forEach(challan => {
+                challan.status = 'paid';
+            });
+            localStorage.setItem('challans', JSON.stringify(challans));
+            alert('Challan Cleared');
+            location.reload();
+        });
+    </script>
 </body>
 
 </html>

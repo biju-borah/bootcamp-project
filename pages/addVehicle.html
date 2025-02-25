@@ -18,6 +18,7 @@
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
+            position: relative;
         }
 
         h1 {
@@ -70,6 +71,7 @@
 </head>
 
 <body>
+    <button style="position: fixed; bottom: 0; right: 0; margin: 0; " onclick="prepopulate()">Prepopulate</button>
     <form>
         <h1>Add Vehicle Detail</h1>
         <div class="container">
@@ -103,8 +105,56 @@
                 <input type="text" id="fuelUsed" name="fuelUsed">
             </div>
         </div>
-        <button type="submit">Add Vehicle</button>
+        <button id="submitform" type="submit">Add Vehicle</button>
     </form>
+    <script>
+        function prepopulate() {
+            document.getElementById('vehicleType').value = 'car';
+            document.getElementById('engineNo').value = '123456';
+            document.getElementById('modelNo').value = '123456';
+            document.getElementById('vehicleName').value = 'Car';
+            document.getElementById('vehicleColor').value = 'Red';
+            document.getElementById('manufacturerName').value = 'Toyota';
+            document.getElementById('dateOfManufacture').value = '2021-09-01';
+            document.getElementById('numberOfCylinders').value = '4';
+            document.getElementById('cubicCapacity').value = '2000';
+            document.getElementById('fuelUsed').value = 'Petrol';
+        }
+        var submitbutton = document.getElementById('submitform');
+        submitbutton.addEventListener('click', function (event) {
+            event.preventDefault();
+            var vehicleType = document.getElementById('vehicleType').value;
+            var engineNo = document.getElementById('engineNo').value;
+            var modelNo = document.getElementById('modelNo').value;
+            var vehicleName = document.getElementById('vehicleName').value;
+            var vehicleColor = document.getElementById('vehicleColor').value;
+            var manufacturerName = document.getElementById('manufacturerName').value;
+            var dateOfManufacture = document.getElementById('dateOfManufacture').value;
+            var numberOfCylinders = document.getElementById('numberOfCylinders').value;
+            var cubicCapacity = document.getElementById('cubicCapacity').value;
+            var fuelUsed = document.getElementById('fuelUsed').value;
+            var data = {
+                vehicleType: vehicleType,
+                engineNo: engineNo,
+                modelNo: modelNo,
+                vehicleName: vehicleName,
+                vehicleColor: vehicleColor,
+                manufacturerName: manufacturerName,
+                dateOfManufacture: dateOfManufacture,
+                numberOfCylinders: numberOfCylinders,
+                cubicCapacity: cubicCapacity,
+                fuelUsed: fuelUsed
+            };
+            var key = 'vehicle_' + Date.now();
+            data.id = key;
+            var vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+            vehicles.push(data);
+            localStorage.setItem('vehicles', JSON.stringify(vehicles));
+            console.log('Data successfully saved to local storage');
+            alert('Vehicle added successfully');
+            location.reload();
+        });
+    </script>
 
 </body>
 

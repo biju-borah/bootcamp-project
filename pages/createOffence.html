@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Offence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        h1,
+        h3 {
+            text-align: center;
+            font-family: "Poppins", serif;
+            color: rgb(172, 57, 66);
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 40em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <h1>Create Offence</h1>
+        <input type="text" placeholder="Offence Description">
+        <input type="text" placeholder="Penalty">
+        <select name="vehicleType" id="vehicleType">
+            <option value="twoWheeler">Two Wheeler</option>
+            <option value="fourWheeler">Four Wheeler</option>
+        </select>
+        <button type="submit">Create Offence</button>
+        <script>
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const offenceDescription = form.querySelector('input').value;
+                const penalty = form.querySelectorAll('input')[1].value;
+                const vehicleType = form.querySelector('select').value;
+                console.log(offenceDescription, penalty, vehicleType);
+
+                const offences = JSON.parse(localStorage.getItem('offences')) || [];
+                const id = Math.floor(Math.random() * 1000000);
+                const offence = {
+                    id,
+                    offenceDescription,
+                    penalty,
+                    vehicleType
+                };
+                offences.push(offence);
+                localStorage.setItem('offences', JSON.stringify(offences));
+                alert('Offence created successfully');
+                location.reload();
+            });
+        </script>
+</body>
+</html>

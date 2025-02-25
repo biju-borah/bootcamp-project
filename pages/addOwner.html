@@ -9,7 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <style>
-        body {
+        body{
+            display: block;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        section {
             font-family: "Poppins", serif;
             margin: 0;
             padding: 0;
@@ -73,57 +79,93 @@
 </head>
 
 <body>
-
-    <!-- First Name 
-Last Name 
-Date Of Birth 
-Landline Number 
-Mobile Number 
-Gender 
-Temporary Address 
-Permanent Address 
-pincode 
-Occupation 
-Pancard Number 
-Address Proof Name -->
-    <form>
-        <h1>Add Owner Detail</h1>
-        <div class="container">
-            <div class="col1">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" required>
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" required>
-                <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" name="dob" required>
-                <label for="landlineNumber">Landline Number</label>
-                <input type="number" id="landlineNumber" name="landlineNumber">
-                <label for="mobileNumber">Mobile Number</label>
-                <input type="number" id="mobileNumber" name="mobileNumber" required>
-                <label for="gender">Gender</label>
-                <select id="gender" name="gender">
-                    <option value="man">Male</option>
-                    <option value="woman">Female</option>
-                </select>
+    <button style="position: fixed; bottom: 0; right: 0; margin: 0; " onclick="prepopulate()">Prepopulate</button>
+    <section>
+        <form>
+            <h1>Add Owner Detail</h1>
+            <div class="container">
+                <div class="col1">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                    <label for="landlineNumber">Landline Number</label>
+                    <input type="number" id="landlineNumber" name="landlineNumber">
+                    <label for="mobileNumber">Mobile Number</label>
+                    <input type="number" id="mobileNumber" name="mobileNumber" required>
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender">
+                        <option value="man">Male</option>
+                        <option value="woman">Female</option>
+                    </select>
+                </div>
+                <div class="col2">
+                    <label for="tempAddress">Temporary Address</label>
+                    <textarea type="text" id="tempAddress" name="tempAddress" required></textarea>
+                    <label for="permAddress">Permanent Address</label>
+                    <textarea type="text" id="permAddress" name="permAddress" required></textarea>
+                    <label for="pincode">Pincode</label>
+                    <input type="number" id="pincode" name="pincode" required>
+                    <label for="occupation">Occupation</label>
+                    <input type="text" id="occupation" name="occupation" required>
+                    <label for="pancardNumber">Pancard Number</label>
+                    <input type="text" id="pancardNumber" name="pancardNumber" required>
+                    <label for="addressProofName">Address Proof Name</label>
+                    <input type="text" id="addressProofName" name="addressProofName" required>
+                </div>
             </div>
-            <div class="col2">
-                <label for="tempAddress">Temporary Address</label>
-                <textarea type="text" id="tempAddress" name="tempAddress" required></textarea>
-                <label for="permAddress">Permanent Address</label>
-                <textarea type="text" id="permAddress" name="permAddress" required></textarea>
-                <label for="pincode">Pincode</label>
-                <input type="number" id="pincode" name="pincode" required>
-                <label for="occupation">Occupation</label>
-                <input type="text" id="occupation" name="occupation" required>
-                <label for="pancardNumber">Pancard Number</label>
-                <input type="text" id="pancardNumber" name="pancardNumber" required>
-                <label for="addressProofName">Address Proof Name</label>
-                <input type="text" id="addressProofName" name="addressProofName" required>
-            </div>
-        </div>
-        <button type="submit">Submit</button>
-    </form>
+            <button id="submitform">Submit</button>
+        </form>
+    </section>
+    <script>
+        //prepopulate the form with dummy data
+        function prepopulate() {
+            document.getElementById('firstName').value = 'John';
+            document.getElementById('lastName').value = 'Doe';
+            document.getElementById('dob').value = '1990-01-01';
+            document.getElementById('landlineNumber').value = '1234567890';
+            document.getElementById('mobileNumber').value = '0987654321';
+            document.getElementById('tempAddress').value = '123, ABC Street, XYZ City, PQR State, 123456';
+            document.getElementById('permAddress').value = '123, ABC Street, XYZ City, PQR State, 123456';
+            document.getElementById('pincode').value = '123456';
+            document.getElementById('occupation').value = 'Engineer';
+            document.getElementById('pancardNumber').value = 'ABCDE1234F';
+            document.getElementById('addressProofName').value = 'Aadhar Card';
+        }
 
+        var submitButton = document.getElementById('submitform');
+        submitButton.addEventListener('click', function (event){
+            submitForm(event);
+        });
+        function submitForm(e) {
+            e.preventDefault();
+            var owner = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                dob: document.getElementById('dob').value,
+                landlineNumber: document.getElementById('landlineNumber').value,
+                mobileNumber: document.getElementById('mobileNumber').value,
+                gender: document.getElementById('gender').value,
+                tempAddress: document.getElementById('tempAddress').value,
+                permAddress: document.getElementById('permAddress').value,
+                pincode: document.getElementById('pincode').value,
+                occupation: document.getElementById('occupation').value,
+                pancardNumber: document.getElementById('pancardNumber').value,
+                addressProofName: document.getElementById('addressProofName').value
+            };
+            //generate a unique id for the owner
+            var ownerId = Math.random().toString(36).substr(2, 9);
+            owner.id = ownerId;
+            var owners = JSON.parse(localStorage.getItem('owners')) || [];
+            owners.push(owner);
+            localStorage.setItem('owners', JSON.stringify(owners));
+            console.log('Data successfully saved to local storage');
+            alert('Owner added successfully');
+            location.reload();
+        }
+    </script>
 </body>
 
 </html>

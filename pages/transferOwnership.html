@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Ownership</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120em;
+            background-color: #f0f0f0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        h1,
+        h3 {
+            text-align: center;
+            font-family: "Poppins", serif;
+            color: rgb(172, 57, 66);
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 40em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 40em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <h1>TRANSFER OWNERSHIP</h1>
+            <label for="vehicle_no">Vehicle No.</label>
+            <input type="text" name="vehicle_no" required>
+            <h3>Current Owner Details</h3>
+            <label for="current_owner_id">Owner ID</label>
+            <input type="text" name="current_owner_id" required disabled>
+            <label for="current_fname">First Name</label>
+            <input type="text" name="current_fname" required disabled>
+            <label for="current_lname">Last Name</label>
+            <input type="text" name="current_lname" required disabled>
+            <label for="current_temp_address">Current Address</label>
+            <textarea rows="3" cols="7" name="current_temp_address" required disabled> </textarea>
+            <label for="current_permanent_address">Permanent Address</label>
+            <textarea rows="3" cols="7" name="current_permanent_address" required disabled> </textarea>
+            <label for="current_contact">Contact No.</label>
+            <input type="tel" name="current_contact" required disabled>
+            <h3>Vehicle Details</h3>
+            <label for="vehicle_id">Vehicle ID</label>
+            <input type="text" name="vehicle_id" required disabled>
+            <label for="vehicle_type">Vehicle Type</label>
+            <input type="text" name="vehicle_type" required disabled>
+            <label for="model_no">Model No.</label>
+            <input type="text" name="model_no" required disabled>
+            <label for="color">Color</label>
+            <input type="text" name="color" required disabled>
+            <label for="date_of_manufacturing">Date of Manufacturing</label>
+            <input type="date" name="date_of_manufacturing" required disabled>
+            <label for="manufacturer">Manufacturer</label>
+            <input type="text" name="manufacturer" required disabled>
+            <h3>New Owner Details</h3>
+            <!-- <input type="checkbox" id="existing_user">
+            <label for="existing_user">Already owns a vehicle</label> -->
+            <label for="new_id">Owner ID</label>
+            <select name="new_id" required></select>
+            <label for="new_fname">First Name</label>
+            <input type="text" name="new_fname" required disabled>
+            <label for="new_lname">Last Name</label>
+            <input type="text" name="new_lname" required disabled>
+            <label for="new_temp_address">Current Address</label>
+            <textarea rows="3" cols="7" name="new_temp_address" required disabled> </textarea>
+            <label for="new_permanent_address">Permanent Address</label>
+            <textarea rows="3" cols="7" name="new_permanent_address" required disabled> </textarea>
+            <label for="new_dob">Date of Birth</label>
+            <input type="date" name="new_dob" required disabled>
+            <label for="new_contact">Contact No.</label>
+            <input type="tel" name="new_contact" required disabled>
+            <button id="transfer" type="submit">TRANSFER</button>
+        </form>
+    </div>
+    <script>
+        var vehicle_no = document.querySelector('input[name="vehicle_no"]');
+        vehicle_no.onkeydown = function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                var vehicle_no = document.querySelector('input[name="vehicle_no"]').value;
+                var registrations = JSON.parse(localStorage.getItem('registrations')) || [];
+                var registration = registrations.find(function(registration) {
+                    return registration.vehicle_no === vehicle_no;
+                });
+                if (registration) {
+                    var owner_id = registration.owner_id;
+                    var owners = JSON.parse(localStorage.getItem('owners')) || [];
+                    var owner = owners.find(function(owner) {
+                        return owner.id === owner_id;
+                    });
+                    if (owner) {
+                        document.querySelector('input[name="current_owner_id"]').value = owner.id;
+                        document.querySelector('input[name="current_fname"]').value = owner.firstName;
+                        document.querySelector('input[name="current_lname"]').value = owner.lastName;
+                        document.querySelector('textarea[name="current_temp_address"]').value = owner.tempAddress;
+                        document.querySelector('textarea[name="current_permanent_address"]').value = owner.permAddress;
+                        document.querySelector('input[name="current_contact"]').value = owner.mobileNumber;
+                    }
+                    var vehicle_id = registration.vehicle_id;
+                    var vehicles = JSON.parse(localStorage.getItem('vehicles')) || [];
+                    var vehicle = vehicles.find(function(vehicle) {
+                        return vehicle.id === vehicle_id;
+                    });
+                    if (vehicle) {
+                        document.querySelector('input[name="vehicle_id"]').value = vehicle.id;
+                        document.querySelector('input[name="vehicle_type"]').value = vehicle.vehicleType;
+                        document.querySelector('input[name="model_no"]').value = vehicle.modelNo;
+                        document.querySelector('input[name="color"]').value = vehicle.vehicleColor;
+                        document.querySelector('input[name="date_of_manufacturing"]').value = vehicle.dateOfManufacture;
+                        document.querySelector('input[name="manufacturer"]').value = vehicle.manufacturerName;
+                    }
+                }
+            }
+        }
+        var owners = JSON.parse(localStorage.getItem('owners')) || [];
+            var select = document.querySelector('select[name="new_id"]');
+            owners.forEach(function(owner) {
+                var option = document.createElement('option');
+                option.value = owner.id;
+                option.textContent = owner.id;
+                select.appendChild(option);
+            });
+        
+        select.onkeydown = function() {
+            var owner_id = select.value;
+            var owner = owners.find(function(owner) {
+                return owner.id === owner_id;
+            });
+            if (owner) {
+                document.querySelector('input[name="new_fname"]').value = owner.firstName;
+                document.querySelector('input[name="new_lname"]').value = owner.lastName;
+                document.querySelector('textarea[name="new_temp_address"]').value = owner.tempAddress;
+                document.querySelector('textarea[name="new_permanent_address"]').value = owner.permAddress;
+                document.querySelector('input[name="new_dob"]').value = owner.dob;
+                document.querySelector('input[name="new_contact"]').value = owner.mobileNumber;
+            }
+        }
+        var transferButton = document.getElementById('transfer');
+        transferButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            var vehicle_no = document.querySelector('input[name="vehicle_no"]').value;
+            var registrations = JSON.parse(localStorage.getItem('registrations')) || [];
+            var registration = registrations.find(function(registration) {
+                return registration.vehicle_no === vehicle_no;
+            });
+            if (registration) {
+                var new_id = document.querySelector('select[name="new_id"]').value;
+                registration.owner_id = new_id;
+                localStorage.setItem('registrations', JSON.stringify(registrations));
+                alert('Ownership transferred successfully!');
+            }
+        });
+    </script>
+</body>
+
+</html>

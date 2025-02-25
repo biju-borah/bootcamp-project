@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 50vw;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .details,
+        .challans {
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .details h2,
+        .challans h2 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            font-size: medium;
+        }
+
+        .details p,
+        .challans p {
+            margin: 5px 0;
+        }
+
+        .challans img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .search-box button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        .challanlist{
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- vehicle_no input field and search button  -->
+
+    <div class="container">
+        <h1>Search Vehicle</h1>
+        <div class="search-box">
+            <input type="text" placeholder="Enter Vehicle Number" id="vehicle_no">
+            <button onclick="searchVehicle()">Search</button>
+        </div>
+        <div class="details">
+        </div>
+        <!-- <div class="vehicleDetails">
+        </div> -->
+        <div class="challans">
+        </div>
+    </div>
+    <script>
+        //populate the details based on vehicle no
+        function searchVehicle() {
+            let vehicle_no = document.getElementById('vehicle_no').value;
+            const registration = JSON.parse(localStorage.getItem('registrations')).find(registration => registration.vehicle_no == vehicle_no);
+            const ownerId = registration.owner_id;
+            const vehicleId = registration.vehicle_id;
+            const ownerDetails = JSON.parse(localStorage.getItem('owners')).find(owner => owner.id == ownerId);
+            const vehicleDetails = JSON.parse(localStorage.getItem('vehicles')).find(vehicle => vehicle.id == vehicleId);
+
+            const details = document.querySelector('.details');
+            details.style.display = 'block';
+            //create elements for owner details
+            const ownerDetailsDiv = document.createElement('div');
+            ownerDetailsDiv.innerHTML = `<h2>Owner Details</h2>
+            <p><strong>First Name:</strong> ${ownerDetails.firstName}</p>
+            <p><strong>Last Name:</strong> ${ownerDetails.lastName}</p>
+            <p><strong>Gender:</strong> ${ownerDetails.gender}</p>
+            <p><strong>Date of Birth:</strong> ${ownerDetails.dob}</p>
+            <p><strong>Occupation:</strong> ${ownerDetails.occupation}</p>
+            <p><strong>Mobile Number:</strong> ${ownerDetails.mobileNumber}</p>
+            <p><strong>Landline Number:</strong> ${ownerDetails.landlineNumber}</p>
+            <p><strong>Permanent Address:</strong> ${ownerDetails.permAddress}</p>
+            <p><strong>Temporary Address:</strong> ${ownerDetails.tempAddress}</p>
+            <p><strong>Pincode:</strong> ${ownerDetails.pincode}</p>
+            <p><strong>PAN Card Number:</strong> ${ownerDetails.pancardNumber}</p>
+            <p><strong>Address Proof Name:</strong> ${ownerDetails.addressProofName}</p>
+            <p><strong>ID:</strong> ${ownerDetails.id}</p>`;
+            details.appendChild(ownerDetailsDiv);
+
+            const challans = JSON.parse(localStorage.getItem('challans')).filter(challan => challan.vehiclenumber == vehicle_no);
+            const challansDiv = document.querySelector('.challans');
+            challansDiv.style.display = 'block';
+            challansDiv.innerHTML = '<h2>Challans</h2>';
+            //loop through challans and display them
+            challans.forEach(challan => {
+                const p = document.createElement('p');
+                p.innerHTML = `<div class="challanlist">
+                <strong>Date and Time:</strong> ${challan.datetime}<br>
+                <strong>Offence ID:</strong> ${challan.offenceId}<br>
+                <strong>Penalty:</strong> ₹${challan.penalty}<br>
+                <strong>Place:</strong> ${challan.place}<br>
+                <strong>Reported By:</strong> ${challan.reportedby}<br>
+                <strong>Status:</strong> ${challan.status}<br>
+                </div>`
+                challansDiv.appendChild(p);
+            });
+            
+
+
+        }
+    </script>
+</body>
+
+</html>
